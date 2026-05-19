@@ -1,0 +1,111 @@
+﻿@using project_itransition.Resources
+@model project_itransition.Models.Entities.Item
+
+@{
+    ViewData["Title"] = "Item Details";
+}
+
+<div class="d-flex justify-content-between align-items-start mb-4">
+
+    <div>
+
+        <h1 class="display-6 fw-bold mb-3">
+            @Model.Name
+        </h1>
+
+        <p class="text-body-secondary mb-0">
+
+            <strong>@Resource.Inventory:</strong>
+
+            @Model.Inventory?.Title
+
+        </p>
+
+    </div>
+
+    @if (ViewBag.CanManageItems == true)
+    {
+        <div class="d-flex gap-2">
+
+            <a asp-action="Edit"
+               asp-route-id="@Model.Id"
+               class="btn btn-primary rounded-pill px-4 shadow-sm">
+
+                @Resource.Edit
+
+            </a>
+
+            <a asp-action="Delete"
+               asp-route-id="@Model.Id"
+               class="btn btn-danger rounded-pill px-4 shadow-sm">
+
+                @Resource.Delete
+
+            </a>
+
+        </div>
+    }
+
+</div>
+
+<div class="card shadow-sm border-0 rounded-4">
+
+    <div class="card-body p-4">
+
+        <h4 class="fw-bold mb-4">
+            @Resource.CustomValues
+        </h4>
+
+        @if (!Model.FieldValues.Any())
+        {
+            <div class="alert alert-dark border rounded-4 mb-0">
+
+                @Resource.NoCustomValuesYet
+
+            </div>
+        }
+        else
+        {
+            <div class="table-responsive">
+
+                <table class="table table-dark table-hover align-middle mb-0">
+
+                    <thead>
+
+                        <tr>
+
+                            <th>@Resource.Field</th>
+
+                            <th>@Resource.Value</th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody>
+
+                        @foreach (var value in Model.FieldValues)
+                        {
+                            <tr>
+
+                                <td class="fw-semibold">
+                                    @value.InventoryField?.Name
+                                </td>
+
+                                <td>
+                                    @value.Value
+                                </td>
+
+                            </tr>
+                        }
+
+                    </tbody>
+
+                </table>
+
+            </div>
+        }
+
+    </div>
+
+</div>

@@ -1,0 +1,147 @@
+﻿@using project_itransition.Resources
+@model IEnumerable<project_itransition.Models.Entities.Inventory>
+
+<h1 class="fw-bold mb-4">
+    @Resource.MyInventories
+</h1>
+
+<a asp-action="Create"
+   class="btn btn-success mb-4 px-4">
+
+    @Resource.CreateInventory
+
+</a>
+
+<div class="card shadow-sm border rounded-4 bg-body-tertiary">
+
+    <div class="card-body">
+
+        <table class="table table-hover align-middle mb-0">
+
+            <thead>
+
+                <tr>
+
+                    <th>@Resource.Title</th>
+
+                    <th>@Resource.Category</th>
+
+                    <th>@Resource.Public</th>
+
+                    <th style="width:180px">
+                        @Resource.Actions
+                    </th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                @foreach (var item in Model)
+                {
+                    <tr>
+
+                        <td>
+
+                            <a asp-action="Details"
+                               asp-route-id="@item.Id"
+                               class="fw-semibold text-decoration-none">
+
+                                @item.Title
+
+                            </a>
+
+                        </td>
+
+                        <td>
+                            @item.Category
+                        </td>
+
+                        <td>
+
+                            @if (item.IsPublic)
+                            {
+                                <span class="badge bg-success">
+                                    @Resource.Public
+                                </span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-secondary">
+                                    @Resource.Private
+                                </span>
+                            }
+
+                        </td>
+
+                        <td class="text-end">
+
+                            <div class="dropdown">
+
+                                <button class="btn btn-sm border"
+                                        type="button"
+                                        data-bs-toggle="dropdown">
+
+                                    ⋮
+
+                                </button>
+
+                                <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0">
+
+                                    <li>
+
+                                        <a class="dropdown-item"
+                                           asp-action="Details"
+                                           asp-route-id="@item.Id">
+
+                                            @Resource.Open
+
+                                        </a>
+
+                                    </li>
+
+                                    <li>
+
+                                        <a class="dropdown-item"
+                                           asp-action="Edit"
+                                           asp-route-id="@item.Id">
+
+                                            @Resource.Edit
+
+                                        </a>
+
+                                    </li>
+
+                                    <li>
+                                        <hr class="dropdown-divider">
+                                    </li>
+
+                                    <li>
+
+                                        <a class="dropdown-item text-danger"
+                                           asp-action="Delete"
+                                           asp-route-id="@item.Id">
+
+                                            @Resource.Delete
+
+                                        </a>
+
+                                    </li>
+
+                                </ul>
+
+                            </div>
+
+                        </td>
+
+                    </tr>
+                }
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>

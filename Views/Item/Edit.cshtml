@@ -1,0 +1,41 @@
+﻿@using project_itransition.Resources
+@model project_itransition.ViewModels.Item.CreateItemViewModel
+
+@{
+    ViewData["Title"] = "Edit Item";
+}
+
+<h2>@Resource.EditItem</h2>
+
+<form method="post">
+
+    @if (!ViewData.ModelState.IsValid)
+    {
+        <div asp-validation-summary="All"
+             class="alert alert-danger mb-3">
+        </div>
+    }
+
+    <input type="hidden" asp-for="InventoryId" />
+
+    <input type="hidden" asp-for="xmin" />
+
+    <div class="mb-3">
+
+        <label asp-for="Name" class="form-label"></label>
+
+        <input asp-for="Name" class="form-control" />
+
+        <span asp-validation-for="Name"
+              class="text-danger"></span>
+
+    </div>
+
+    <button type="submit"
+            class="btn btn-primary">
+
+        @Resource.Save
+
+    </button>
+
+</form>

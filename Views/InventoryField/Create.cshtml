@@ -1,0 +1,74 @@
+﻿@using project_itransition.Resources
+@model project_itransition.ViewModels.InventoryField.CreateFieldViewModel
+
+@{
+    ViewData["Title"] = "Create Field";
+}
+
+<h2>@Resource.CreateField</h2>
+
+<form method="post">
+
+    <input type="hidden" asp-for="InventoryId" />
+
+    <div class="mb-3">
+
+        <label asp-for="Name"></label>
+
+        <input asp-for="Name"
+               class="form-control" />
+
+    </div>
+
+    <div class="mb-3">
+
+        <label asp-for="FieldType"></label>
+
+        <select asp-for="FieldType"
+                class="form-select">
+
+            <option value="text">Text</option>
+
+            <option value="number">Number</option>
+
+            <option value="checkbox">Checkbox</option>
+
+            <option value="multiline">Multiline</option>
+
+            <option value="link">Link</option>
+
+        </select>
+
+    </div>
+
+    <div class="mb-3">
+
+        <label asp-for="Description"></label>
+
+        <textarea asp-for="Description"
+                  class="form-control"></textarea>
+
+    </div>
+
+    <div class="form-check mb-3">
+
+        <input asp-for="ShowInTable"
+               class="form-check-input" />
+
+        <label asp-for="ShowInTable"
+               class="form-check-label">
+
+            @Resource.ShowInItemTable
+
+        </label>
+
+    </div>
+
+    <button type="submit"
+            class="btn btn-success">
+
+        @Resource.CreateField
+
+    </button>
+
+</form>

@@ -1,0 +1,36 @@
+﻿@using project_itransition.Resources
+@model project_itransition.Models.Entities.Item
+
+@{
+    ViewData["Title"] = "Delete Item";
+}
+
+<h2>@Resource.DeleteItem</h2>
+
+<div class="alert alert-danger">
+
+    @Resource.AreYouSureYouWantToDelete :
+
+    <strong>@Model.Name</strong> ?
+
+</div>
+
+<form method="post">
+
+    <button type="submit"
+            class="btn btn-danger">
+
+        @Resource.Delete
+
+    </button>
+
+    <a asp-controller="Inventory"
+       asp-action="Details"
+       asp-route-id="@Model.InventoryId"
+       class="btn btn-secondary">
+
+        @Resource.Cancel
+
+    </a>
+
+</form>

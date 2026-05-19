@@ -1,0 +1,89 @@
+﻿@using project_itransition.Resources
+@model IEnumerable<project_itransition.Models.Entities.Inventory>
+
+<h1 class="fw-bold mb-4">
+
+    @Resource.SearchResults
+
+</h1>
+
+<p class="text-muted mb-4">
+
+    @Resource.ResultsFor :
+    <strong>
+        @ViewBag.Query
+    </strong>
+
+</p>
+
+<div class="card shadow-sm border-0 rounded-4">
+
+    <div class="card-body">
+
+        @if (!Model.Any())
+        {
+            <div class="text-center py-5">
+
+                <h5 class="fw-semibold">
+                    @Resource.NoInventoriesFound
+                </h5>
+
+                <p class="text-muted">
+                    @Resource.TryAnotherSearchQuery
+                </p>
+
+            </div>
+        }
+        else
+        {
+            <table class="table table-hover align-middle">
+
+                <thead class="table-light">
+
+                    <tr>
+
+                        <th>@Resource.Title</th>
+                        <th>@Resource.Category</th>
+                        <th>@Resource.Owner</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+
+                            <td>
+
+                                <a asp-action="Details"
+                                   asp-route-id="@item.Id"
+                                   class="fw-semibold text-decoration-none">
+
+                                    @item.Title
+
+                                </a>
+
+                            </td>
+
+                            <td>
+                                @item.Category
+                            </td>
+
+                            <td>
+                                @item.Owner?.FullName
+                            </td>
+
+                        </tr>
+                    }
+
+                </tbody>
+
+            </table>
+        }
+
+    </div>
+
+</div>

@@ -1,0 +1,46 @@
+﻿@using project_itransition.Resources
+@model project_itransition.Models.Entities.Inventory
+
+<h1 class="fw-bold text-danger mb-4">
+    @Resource.DeleteInventory
+</h1>
+
+<div class="card shadow-sm border-0 rounded-4">
+
+    <div class="card-body p-4">
+
+        <p class="fs-5">
+
+            @Resource.AreYouSureYouWantToDelete :
+
+            <strong>
+                @Model.Title
+            </strong>?
+
+        </p>
+
+        <form asp-action="Delete"
+              method="post">
+
+            <input type="hidden"
+                   asp-for="Id" />
+            @if (ViewBag.CanEdit == true)
+            {
+                <button class="btn btn-danger px-4">
+
+                    @Resource.Delete
+
+                </button>
+            }
+            <a asp-action="MyInventories"
+               class="btn btn-light ms-2">
+
+                @Resource.Cancel
+
+            </a>
+
+        </form>
+
+    </div>
+
+</div>

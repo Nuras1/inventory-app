@@ -1,0 +1,111 @@
+﻿@using project_itransition.Resources
+@model project_itransition.Models.Entities.Inventory
+
+<h1 class="fw-bold mb-4">
+    @Resource.EditInventory
+</h1>
+
+<div class="card shadow-sm border-0 rounded-4">
+
+    <div class="card-body p-4">
+
+        <form asp-action="Edit" method="post">
+            @if (!ViewData.ModelState.IsValid)
+            {
+                <div asp-validation-summary="All"
+                     class="alert alert-danger mb-3">
+                </div>
+            }
+            <input type="hidden" asp-for="Id" />
+
+            <input type="hidden" asp-for="xmin" />
+
+            <div class="mb-3">
+
+                <label class="form-label">
+                    @Resource.Title
+                </label>
+
+                <input asp-for="Title"
+                       class="form-control" />
+
+            </div>
+
+            <div class="mb-3">
+
+                <label class="form-label">
+                    @Resource.Description
+                </label>
+
+                <textarea asp-for="Description"
+                          class="form-control"
+                          rows="4">
+                </textarea>
+
+            </div>
+
+            <div class="mb-3">
+
+                <label class="form-label">
+                    @Resource.Category
+                </label>
+
+                <input asp-for="Category"
+                       class="form-control" />
+
+            </div>
+            <div class="mb-3">
+
+                <label class="form-label">
+
+                    Custom ID Format
+
+                </label>
+
+                <input asp-for="CustomIdFormat"
+                       class="form-control" />
+
+                <small class="text-muted">
+
+                    Examples:
+
+                    BOOK-{SEQ}
+
+                    INV-{YEAR}-{SEQ}
+
+                    LAP-{RAND6}
+
+                </small>
+
+            </div>
+
+            <div class="form-check mb-4">
+
+                <input asp-for="IsPublic"
+                       class="form-check-input" />
+
+                <label class="form-check-label">
+                    @Resource.PublicInventory
+                </label>
+
+            </div>
+            @if (ViewBag.CanEdit == true)
+            {
+                <button class="btn btn-primary px-4">
+
+                    @Resource.SaveChanges
+
+                </button>
+            }
+            <a asp-action="MyInventories"
+               class="btn btn-light ms-2">
+
+                @Resource.Cancel
+
+            </a>
+
+        </form>
+
+    </div>
+
+</div>

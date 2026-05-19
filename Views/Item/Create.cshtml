@@ -1,0 +1,61 @@
+﻿@using project_itransition.Resources
+@model project_itransition.ViewModels.Item.CreateItemViewModel
+
+<h2>@Resource.CreateItem</h2>
+
+<form asp-action="Create" method="post">
+
+    <input type="hidden" asp-for="InventoryId" />
+
+    <div class="mb-3">
+
+        <label class="form-label">@Resource.Name</label>
+
+        <input asp-for="Name" class="form-control" />
+
+    </div>
+
+    <hr />
+
+    <h4>@Resource.CustomField</h4>
+
+    @foreach (var field in Model.Fields)
+    {
+        <div class="mb-3">
+
+            <label class="form-label">
+                @field.Name
+            </label>
+
+            @if (field.FieldType == "multiline")
+            {
+                <textarea name="Values[@field.Id]"
+                          class="form-control">
+                </textarea>
+            }
+            else if (field.FieldType == "checkbox")
+            {
+                <input type="checkbox"
+                       name="Values[@field.Id]"
+                       value="true" />
+            }
+            else
+            {
+                <input type="text"
+                       name="Values[@field.Id]"
+                       class="form-control" />
+            }
+
+            @if (!string.IsNullOrEmpty(field.Description))
+            {
+                <small class="text-muted">
+                    @field.Description
+                </small>
+            }
+
+        </div>
+    }
+    <button class="btn btn-success">
+        @Resource.CreateItem
+    </button>
+</form>

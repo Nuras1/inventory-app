@@ -1,0 +1,141 @@
+﻿@using project_itransition.Resources
+@using project_itransition.ViewModels.Account
+@model LoginViewModel
+
+@{
+    ViewData["Title"] = "Login";
+    Layout = "~/Views/Shared/_AccountLayout.cshtml";
+}
+
+<div class="account-container">
+
+    <div class="account-box">
+
+        <h2 class="text-center mb-4">
+            @Resource.Login
+        </h2>
+
+        <form asp-action="Login" method="post">
+
+            <div asp-validation-summary="ModelOnly"
+                 class="text-danger">
+            </div>
+
+            <div class="mb-3">
+
+                <label asp-for="Email"
+                       class="form-label">
+                </label>
+
+                <input asp-for="Email"
+                       class="form-control" />
+
+                <span asp-validation-for="Email"
+                      class="text-danger">
+                </span>
+
+            </div>
+
+            <div class="mb-3">
+
+                <label asp-for="Password"
+                       class="form-label">
+                </label>
+
+                <input asp-for="Password"
+                       class="form-control" />
+
+                <span asp-validation-for="Password"
+                      class="text-danger">
+                </span>
+
+            </div>
+
+            <div class="d-flex justify-content-between align-items-center mb-3">
+
+                <div class="form-check">
+
+                    <label class="form-check-label">
+
+                        <input asp-for="RememberMe" class="form-check-input" />
+
+                        @Html.DisplayNameFor(a => a.RememberMe)
+
+                    </label>
+
+                </div>
+
+                <a asp-controller="Account" asp-action="VerifyEmail" class="text-decoration-none"> @Resource.ForgotPassword ? </a>
+
+            </div>
+
+            <input type="submit"
+                   value="@Resource.Login"
+                   class="btn btn-success w-100 py-2 rounded-3 shadow-sm" />
+
+            <p class="text-center mt-3 mb-0">
+
+                @Resource.DonHaveAnAccount ?
+
+                <a asp-controller="Account" asp-action="Register" class="text-decoration-none fw-semibold"> @Resource.Register </a>
+
+            </p>
+
+            <div class="text-center mt-3">
+
+                <a asp-controller="Inventory" asp-action="Index" class="text-decoration-none"> @Resource.Back</a>
+
+            </div>
+
+            <div class="d-flex align-items-center my-4">
+
+                <hr class="flex-grow-1">
+
+                <span class="px-3 text-body-secondary">
+                    OR
+                </span>
+
+                <hr class="flex-grow-1">
+
+            </div>
+
+            <div class="d-grid gap-3">
+
+                <a asp-controller="Account" asp-action="ExternalLogin" asp-route-provider="Google"
+                   class="btn btn-light border shadow-sm rounded-3 d-flex align-items-center justify-content-center gap-3 py-2">
+                    <img src="https://developers.google.com/identity/images/g-logo.png"
+                         width="20"
+                         height="20"
+                         alt="Google">
+
+                    <span class="fw-semibold text-dark">
+                        Continue with Google
+                    </span>
+
+                </a>
+
+                <a asp-controller="Account" asp-action="ExternalLogin" asp-route-provider="GitHub"
+                   class="btn btn-dark shadow-sm rounded-3 d-flex align-items-center justify-content-center gap-3 py-2">
+
+                    <i class="bi bi-github fs-5"></i>
+
+                    <span class="fw-semibold">
+                        Continue with GitHub
+                    </span>
+
+                </a>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+@section Scripts
+{
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

@@ -1,0 +1,472 @@
+﻿@using project_itransition.Resources
+@model project_itransition.Models.Entities.Inventory
+
+@{
+    ViewData["Title"] = "Inventory Details";
+}
+
+<div class="d-flex justify-content-between align-items-start mb-4">
+
+    <div>
+
+        <h1 class="display-5 fw-bold mb-2">
+            @Model.Title
+        </h1>
+
+        <div class="d-flex flex-wrap gap-2 mb-3">
+
+            <span class="badge bg-primary">
+                @Model.Category
+            </span>
+
+            @if (Model.IsPublic)
+            {
+                <span class="badge bg-success">
+                    @Resource.Public
+                </span>
+            }
+            else
+            {
+                <span class="badge bg-secondary">
+                    @Resource.Private
+                </span>
+            }
+
+        </div>
+
+        @if (!string.IsNullOrWhiteSpace(Model.Description))
+        {
+            <p class="text-body-secondary mb-2">
+                @Model.Description
+            </p>
+        }
+
+        <small class="text-body-secondary">
+
+            @Resource.CreatedBy
+
+            <strong>
+                @Model.Owner?.FullName
+            </strong>
+
+        </small>
+
+        @if (Model.Tags.Any())
+        {
+            <div class="mt-3 d-flex flex-wrap gap-2">
+
+                @foreach (var tag in Model.Tags)
+                {
+                    <a asp-controller="Inventory"
+                       asp-action="ByTag"
+                       asp-route-tag="@tag.Name"
+                       class="badge text-bg-secondary text-decoration-none px-3 py-2">
+
+                        #@tag.Name
+
+                    </a>
+                }
+
+            </div>
+        }
+
+    </div>
+
+    <div class="d-flex gap-2 align-items-center">
+        @if (ViewBag.CanEdit == true)
+        {
+            <a asp-action="Edit"
+               asp-route-id="@Model.Id"
+               class="btn btn-primary rounded-pill px-4 shadow-sm">
+                @Resource.Edit
+
+            </a>
+        }
+        @if (ViewBag.CanEdit == true)
+        {
+            <a asp-action="Delete"
+               asp-route-id="@Model.Id"
+               class="btn btn-danger rounded-pill px-4 shadow-sm">
+
+                @Resource.Delete
+
+            </a>
+        }
+    </div>
+
+</div>
+
+<div class="border-bottom mb-4"></div>
+
+<ul class="nav nav-tabs mb-4" id="inventoryTabs" role="tablist">
+
+    <li class="nav-item" role="presentation">
+
+        <button class="nav-link active"
+                data-bs-toggle="tab"
+                data-bs-target="#items"
+                type="button">
+
+            @Resource.Items
+
+        </button>
+
+    </li>
+
+    <li class="nav-item" role="presentation">
+
+        <button class="nav-link"
+                data-bs-toggle="tab"
+                data-bs-target="#fields"
+                type="button">
+
+            @Resource.Fields
+
+        </button>
+
+    </li>
+
+</ul>
+
+<div class="tab-content">
+
+    <div class="tab-pane fade show active"
+         id="items"
+         role="tabpanel">
+
+        <div class="d-flex justify-content-between align-items-center mb-3">
+
+            <h3 class="fw-bold mb-0">
+                @Resource.Items
+            </h3>
+
+            @if (ViewBag.CanManageItems == true)
+            {
+                <a asp-controller="Item"
+                   asp-action="Create"
+                   asp-route-inventoryId="@Model.Id"
+                   class="btn btn-primary rounded-pill px-4 shadow-sm">
+
+                    @Resource.CreateItem
+
+                </a>
+            }
+
+        </div>
+
+        <div class="card shadow-sm border-0 rounded-4 mb-4">
+
+            <div class="card-body p-0">
+
+                @if (!Model.Items.Any())
+                {
+                    <div class="text-center py-5">
+
+                        <h5 class="fw-semibold">
+                            @Resource.NoItems
+                        </h5>
+
+                        <p class="text-body-secondary mb-0">
+                            @Resource.CreateFirstItem
+                        </p>
+
+                    </div>
+                }
+                else
+                {
+                    <table class="table table-hover align-middle mb-0">
+
+                        <thead class="table">
+
+                            <tr>
+
+                                <th>@Resource.Name</th>
+
+                                <th>@Resource.CustomID</th>
+
+                                @foreach (var field in Model.InventoryFields
+                               .Where(f => f.ShowInTable)
+                               .OrderBy(f => f.Order))
+                                {
+                                    <th>@field.Name</th>
+                                }
+
+                                <th>@Resource.Created</th>
+
+                                @if (ViewBag.CanManageItems == true)
+                                {
+                                    <th style="width:120px">
+                                        @Resource.Actions
+                                    </th>
+                                }
+
+                            </tr>
+
+                        </thead>
+
+                        <tbody>
+
+                            @foreach (var item in Model.Items)
+                            {
+                                <tr>
+
+                                    <td>
+
+                                        <a asp-controller="Item"
+                                           asp-action="Details"
+                                           asp-route-id="@item.Id"
+                                           class="fw-semibold text-decoration-none">
+
+                                            @item.Name
+
+                                        </a>
+
+                                    </td>
+
+                                    <td>
+                                        @item.CustomId
+                                    </td>
+
+                                    @foreach (var field in Model.InventoryFields
+                                   .Where(f => f.ShowInTable)
+                                   .OrderBy(f => f.Order))
+                                    {
+                                        var value = item.FieldValues
+                                        .FirstOrDefault(v => v.InventoryFieldId == field.Id);
+
+                                        <td>
+
+                                            @if (field.FieldType == "link")
+                                            {
+                                                <a href="@value?.Value"
+                                                   target="_blank">
+
+                                                    @value?.Value
+
+                                                </a>
+                                            }
+                                            else if (field.FieldType == "checkbox")
+                                            {
+                                                @if (value?.Value == "true")
+                                                {
+                                                    <span class="badge bg-success">
+                                                        @Resource.Yes
+                                                    </span>
+                                                }
+                                                else
+                                                {
+                                                    <span class="badge bg-secondary">
+                                                        @Resource.No
+                                                    </span>
+                                                }
+                                            }
+                                            else if (field.FieldType == "multiline")
+                                            {
+                                                <div style="white-space: pre-wrap; max-width: 250px; overflow-wrap: break-word;">
+
+                                                    @value?.Value
+
+                                                </div>
+                                            }
+                                            else
+                                            {
+                                                @value?.Value
+                                            }
+
+                                        </td>
+                                    }
+
+                                    <td>
+                                        @item.CreatedAt.ToLocalTime()
+                                    </td>
+
+                                    <td class="text-end">
+
+                                        <div class="dropdown">
+                                            @if (ViewBag.CanManageItems == true)
+                                            {
+                                                <button class="btn btn-sm btn-outline-secondary"
+                                                        type="button"
+                                                        data-bs-toggle="dropdown">
+
+                                                    ⋮
+
+                                                </button>
+                                            }
+                                            <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0">
+
+                                                <li>
+
+                                                    <a class="dropdown-item"
+                                                       asp-controller="Item"
+                                                       asp-action="Details"
+                                                       asp-route-id="@item.Id">
+
+                                                        @Resource.Open
+
+                                                    </a>
+
+                                                </li>
+
+                                                <li>
+                                                    @if (ViewBag.CanManageItems == true)
+                                                    {
+                                                        <a class="dropdown-item"
+                                                           asp-controller="Item"
+                                                           asp-action="Edit"
+                                                           asp-route-id="@item.Id">
+
+                                                            @Resource.Edit
+
+                                                        </a>
+                                                    }
+                                                </li>
+
+                                                <li>
+                                                    <hr class="dropdown-divider">
+                                                </li>
+
+                                                <li>
+                                                    @if (ViewBag.CanManageItems == true)
+                                                    {
+                                                        <a class="dropdown-item text-danger"
+                                                           asp-controller="Item"
+                                                           asp-action="Delete"
+                                                           asp-route-id="@item.Id">
+
+                                                            @Resource.Delete
+
+                                                        </a>
+                                                    }
+                                                </li>
+
+                                            </ul>
+
+                                        </div>
+
+                                    </td>
+
+                                </tr>
+                            }
+
+                        </tbody>
+
+                    </table>
+                }
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="tab-pane fade"
+         id="fields"
+         role="tabpanel">
+
+        <div class="d-flex justify-content-between align-items-center mb-3">
+
+            <h3 class="fw-bold mb-0">
+                @Resource.CustomField
+            </h3>
+            @if (ViewBag.CanEdit == true)
+            {
+                <a asp-controller="InventoryField"
+                   asp-action="Create"
+                   asp-route-inventoryId="@Model.Id"
+                   class="btn btn-outline-primary">
+
+                    + @Resource.AddField
+
+                </a>
+            }
+        </div>
+
+        <div class="card shadow-sm border-0 rounded-4">
+
+            <div class="card-body p-0">
+
+                @if (!Model.InventoryFields.Any())
+                {
+                    <div class="text-center py-5">
+
+                        <h5 class="fw-semibold">
+                            @Resource.NoFields
+                        </h5>
+
+                        <p class="text-body-secondary mb-0">
+                            @Resource.AddCustomFields
+                        </p>
+
+                    </div>
+                }
+                else
+                {
+                    <table class="table table-hover align-middle mb-0">
+
+                        <thead class="table">
+
+                            <tr>
+
+                                <th>@Resource.Name</th>
+
+                                <th>@Resource.Type</th>
+
+                                <th>@Resource.Description</th>
+
+                                <th>@Resource.ShowInTable</th>
+
+                            </tr>
+
+                        </thead>
+
+                        <tbody>
+
+                            @foreach (var field in Model.InventoryFields.OrderBy(f => f.Order))
+                            {
+                                <tr>
+
+                                    <td>
+                                        @field.Name
+                                    </td>
+
+                                    <td>
+                                        @field.FieldType
+                                    </td>
+
+                                    <td>
+                                        @field.Description
+                                    </td>
+
+                                    <td>
+
+                                        @if (field.ShowInTable)
+                                        {
+                                            <span class="badge bg-success">
+                                                @Resource.Yes
+                                            </span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge bg-secondary">
+                                                @Resource.No
+                                            </span>
+                                        }
+
+                                    </td>
+
+                                </tr>
+                            }
+
+                        </tbody>
+
+                    </table>
+                }
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

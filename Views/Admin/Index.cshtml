@@ -1,0 +1,110 @@
+﻿@using project_itransition.Resources
+@model IEnumerable<project_itransition.ViewModels.Admin.UserManagementViewModel>
+
+<h1 class="fw-bold mb-4">
+    @Resource.UserManagement
+</h1>
+
+<div class="card shadow-sm border rounded-4 bg-body-tertiary">
+
+    <div class="card-body">
+
+        <table class="table table-hover align-middle mb-0">
+
+            <thead>
+
+                <tr>
+
+                    <th>@Resource.User</th>
+
+                    <th>@Resource.Email</th>
+
+                    <th>@Resource.Status</th>
+
+                    <th>@Resource.Role</th>
+
+                    <th style="width:180px">
+                        @Resource.Actions
+                    </th>
+
+                </tr>
+
+            </thead>
+            <tbody>
+                @foreach (var user in Model)
+                {
+                    <tr>
+                        <td>@user.FullName</td>
+
+                        <td>@user.Email</td>
+
+                        <td>
+                            @if (user.IsBlocked)
+                            {
+                                <span>Blocked</span>
+                            }
+                            else
+                            {
+                                <span>Active</span>
+                            }
+                        </td>
+
+                        <td>
+                            @if (user.IsAdmin == true)
+                            {
+                                <span>Admin</span>
+                            }
+                            else
+                            {
+                                <span>User</span>
+                            }
+                        </td>
+
+                        <td class="text-end">
+
+                            <div class="dropdown">
+
+                                <button class="btn btn-sm border"
+                                        type="button"
+                                        data-bs-toggle="dropdown">
+                                    ⋮
+                                </button>
+
+                                <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0">
+
+                                    <li>
+                                        <a class="dropdown-item" asp-action="Block" asp-route-id="@user.Id">@Resource.Block</a>
+                                    </li>
+
+                                    <li>
+                                        <a class="dropdown-item" asp-action="Unblock" asp-route-id="@user.Id">@Resource.Unblock</a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" asp-action="MakeAdmin" asp-route-id="@user.Id">@Resource.MakeAdmin</a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" asp-action="RemoveAdmin" asp-route-id="@user.Id">@Resource.RemoveAdmin</a>
+                                    </li>
+
+                                    <li>
+                                        <hr class="dropdown-divider">
+                                    </li>
+
+                                    <li>
+                                        <a class="dropdown-item text-danger" asp-action="Delete" asp-route-id="@user.Id">@Resource.Delete</a>
+                                    </li>
+
+                                </ul>
+
+                            </div>
+
+                        </td>
+                    </tr>
+                }
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
