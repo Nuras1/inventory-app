@@ -112,6 +112,20 @@
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
+        @if (TempData["Error"] != null)
+        {
+            <div id="autoCloseAlert"
+                 class="alert alert-danger alert-dismissible fade show mt-3">
+
+                @TempData["Error"]
+
+                <button type="button"
+                        class="btn-close"
+                        data-bs-dismiss="alert">
+                </button>
+
+            </div>
+        }
     </div>
 
     <footer class="border-top footer text-body-secondary bg-body-tertiary">
@@ -119,94 +133,9 @@
             &copy; 2026 - project_itransition - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
-    <script>
-
-            document.getElementById('btnSwitch')
-                .addEventListener('click', () => {
-
-                    if (document.documentElement
-                        .getAttribute('data-bs-theme') == 'dark')
-                    {
-                        document.documentElement
-                            .setAttribute('data-bs-theme', 'light');
-                    }
-                    else
-                    {
-                        document.documentElement
-                            .setAttribute('data-bs-theme', 'dark');
-                    }
-
-                });
-
-    </script>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
-    <script>
-
-        const searchInput = document.getElementById("searchInput");
-        const clearButton = document.getElementById("clearSearch");
-
-        if (searchInput && clearButton)
-        {
-        function toggleClear()
-        {
-        clearButton.style.display =
-        searchInput.value.length > 0
-        ? "block"
-        : "none";
-        }
-
-        toggleClear();
-
-        searchInput.addEventListener("input", toggleClear);
-
-        clearButton.addEventListener("click", function ()
-        {
-        searchInput.value = "";
-        toggleClear();
-        searchInput.focus();
-        });
-        }
-
-    </script>
-    <script>
-
-        const html = document.documentElement;
-        const themeSwitch = document.getElementById('btnSwitch');
-
-        const savedTheme = localStorage.getItem('theme');
-
-        if (savedTheme) {
-
-        html.setAttribute('data-bs-theme', savedTheme);
-
-        if (savedTheme === 'dark') {
-        themeSwitch.checked = true;
-        }
-
-        }
-
-        themeSwitch.addEventListener('change', function () {
-
-        if (this.checked) {
-
-        html.setAttribute('data-bs-theme', 'dark');
-
-        localStorage.setItem('theme', 'dark');
-
-        }
-        else {
-
-        html.setAttribute('data-bs-theme', 'light');
-
-        localStorage.setItem('theme', 'light');
-
-        }
-
-        });
-
-    </script>
 </body>
 </html>

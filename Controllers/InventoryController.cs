@@ -42,7 +42,7 @@ namespace project_itransition.Controllers
                 .Include(i => i.Owner)
                 .Include(i => i.Tags)
                 .Include(i => i.Items)
-                .ThenInclude(item => item.FieldValues)
+                    .ThenInclude(item => item.FieldValues)
                 .Include(i => i.InventoryFields)
                 .Include(i => i.AccessUsers)
                 .FirstOrDefaultAsync(i => i.Id == id);
@@ -51,11 +51,30 @@ namespace project_itransition.Controllers
             {
                 return NotFound();
             }
+
             var user = await userManager.GetUserAsync(User);
+
+            if (!inventory.IsPublic)
+            {
+                bool hasAccess = user != null &&
+                    (
+                        inventory.OwnerId == user.Id
+                        || User.IsInRole("Admin")
+                        || inventory.AccessUsers.Any(a => a.UserId == user.Id)
+                    );
+
+                if (!hasAccess)
+                {
+                    TempData["Error"] = "This inventory is private. You do not have access.";
+
+                    return RedirectToAction("Index");
+                }
+            }
 
             bool canEdit = user != null &&
                 (
-                    inventory.OwnerId == user.Id || User.IsInRole("Admin")
+                    inventory.OwnerId == user.Id
+                    || User.IsInRole("Admin")
                 );
 
             ViewBag.CanEdit = canEdit;
@@ -64,7 +83,11 @@ namespace project_itransition.Controllers
 
             if (user != null)
             {
-                canManageItems = inventory.IsPublic || inventory.OwnerId == user.Id || User.IsInRole("Admin") || inventory.AccessUsers.Any(a => a.UserId == user.Id);
+                canManageItems =
+                    inventory.IsPublic
+                    || inventory.OwnerId == user.Id
+                    || User.IsInRole("Admin")
+                    || inventory.AccessUsers.Any(a => a.UserId == user.Id);
             }
 
             ViewBag.CanManageItems = canManageItems;
@@ -101,13 +124,13 @@ namespace project_itransition.Controllers
             {
                 return NotFound();
             }
+                var user = await userManager.GetUserAsync(User);
 
-            var user = await userManager.GetUserAsync(User);
-
-            if (!CanEditInventory(inventory, user))
-            {
-                return Forbid();
-            }
+                if (!CanEditInventory(inventoryToUpdate, user))
+                {
+                    return Forbid();
+                }
+            
 
             if (!ModelState.IsValid)
             {
