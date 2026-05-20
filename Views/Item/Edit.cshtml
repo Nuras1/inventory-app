@@ -1,41 +1,73 @@
 ﻿@using project_itransition.Resources
 @model project_itransition.ViewModels.Item.CreateItemViewModel
 
-@{
-    ViewData["Title"] = "Edit Item";
-}
-
-<h2>@Resource.EditItem</h2>
+<h1 class="mb-4 fw-bold">
+    @Resource.EditItem
+</h1>
 
 <form method="post">
 
-    @if (!ViewData.ModelState.IsValid)
-    {
-        <div asp-validation-summary="All"
-             class="alert alert-danger mb-3">
-        </div>
-    }
-
-    <input type="hidden" asp-for="InventoryId" />
-
     <input type="hidden" asp-for="xmin" />
 
-    <div class="mb-3">
+    <div class="mb-4">
 
-        <label asp-for="Name" class="form-label"></label>
+        <label class="form-label fw-semibold">
+            @Resource.Name
+        </label>
 
         <input asp-for="Name" class="form-control" />
 
-        <span asp-validation-for="Name"
-              class="text-danger"></span>
-
     </div>
 
-    <button type="submit"
-            class="btn btn-primary">
+    @foreach (var field in Model.Fields)
+    {
+        <div class="mb-4">
 
+            <label class="form-label fw-semibold">
+                @field.Name
+            </label>
+
+            @if (field.FieldType == "Number")
+            {
+                <input type="number" name="Values[@field.Id]" value="@(Model.Values.ContainsKey(field.Id) ? Model.Values[field.Id] : "")" class="form-control" />
+            }
+
+            else if (field.FieldType == "Checkbox")
+            {
+                <div class="form-check">
+
+                    <input type="checkbox" name="Values[@field.Id]" value="true" class="form-check-input"
+                    @(Model.Values.ContainsKey(field.Id) && Model.Values[field.Id] == "true" ? "checked" : "") />
+
+                </div>
+            }
+
+            else if (field.FieldType == "Multiline Text")
+            {
+                <textarea name="Values[@field.Id]" class="form-control" rows="4">@(Model.Values.ContainsKey(field.Id) ? Model.Values[field.Id] : "")</textarea>
+            }
+
+            else
+            {
+                <input type="text" name="Values[@field.Id]" value="@(Model.Values.ContainsKey(field.Id) ? Model.Values[field.Id] : "")" class="form-control" />
+            }
+
+            @if (!string.IsNullOrEmpty(field.Description))
+            {
+                <div class="form-text">
+                    @field.Description
+                </div>
+            }
+
+        </div>
+    }
+
+    <button type="submit" class="btn btn-primary px-4">
         @Resource.Save
-
     </button>
+
+    <a asp-controller="Inventory" asp-action="Details" asp-route-id="@Model.InventoryId" class="btn btn-outline-secondary ms-2">
+        @Resource.Cancel
+    </a>
 
 </form>
