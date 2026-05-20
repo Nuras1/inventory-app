@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using project_itransition.Data;
 using project_itransition.Models.Entities;
+using project_itransition.Resources;
 using project_itransition.ViewModels.Inventory;
 
 namespace project_itransition.Controllers
@@ -111,6 +112,7 @@ namespace project_itransition.Controllers
             {
                 return Forbid();
             }
+            ViewBag.CanEdit = true;
 
             return View(inventory);
         }
@@ -124,13 +126,13 @@ namespace project_itransition.Controllers
             {
                 return NotFound();
             }
-                var user = await userManager.GetUserAsync(User);
+            var user = await userManager.GetUserAsync(User);
 
-                if (!CanEditInventory(inventoryToUpdate, user))
-                {
-                    return Forbid();
-                }
-            
+            if (!CanEditInventory(inventoryToUpdate, user))
+            {
+                return Forbid();
+            }
+
 
             if (!ModelState.IsValid)
             {
@@ -153,7 +155,7 @@ namespace project_itransition.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                ModelState.AddModelError("", "This inventory was modified by another user. Reload the page and try again.");
+                ModelState.AddModelError("", @Resource.ThisInventoryWasModified);
 
                 return View(inventory);
             }
@@ -287,9 +289,9 @@ namespace project_itransition.Controllers
             ViewBag.Tag = tag;
             return View(inventories);
         }
-        private bool CanEditInventory(Inventory inventory,ApplicationUser? user)
+        private bool CanEditInventory(Inventory inventory, ApplicationUser? user)
         {
-            return user != null &&(inventory.OwnerId == user.Id || User.IsInRole("Admin"));
+            return user != null && (inventory.OwnerId == user.Id || User.IsInRole("Admin"));
         }
     }
 }

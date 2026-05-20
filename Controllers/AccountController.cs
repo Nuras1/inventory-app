@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using project_itransition.Models.Entities;
+using project_itransition.Resources;
 using project_itransition.ViewModels.Account;
 using System.Security.Claims;
 
@@ -28,7 +29,7 @@ namespace project_itransition.Controllers
                 var user = await userManager.FindByEmailAsync(model.Email);
                 if (user != null && await userManager.IsLockedOutAsync(user))
                 {
-                    ModelState.AddModelError("", "Your account is blocked.");
+                    ModelState.AddModelError("", @Resource.YourAccountIsBlocked);
                     return View(model);
                 }
                 var result = await signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, false);
@@ -40,7 +41,7 @@ namespace project_itransition.Controllers
                 }
                 else
                 {
-                    ModelState.AddModelError("", "Email or password is incorrect.");
+                    ModelState.AddModelError("", @Resource.EmailOrPasswordIsIncorrect);
                     return View(model);
                 }
             }
@@ -96,7 +97,7 @@ namespace project_itransition.Controllers
                 var user = await userManager.FindByNameAsync(model.Email);
                 if (user == null)
                 {
-                    ModelState.AddModelError("", "Something is wrong");
+                    ModelState.AddModelError("", @Resource.SomethingIsWrong);
                     return View(model);
                 }
                 else
@@ -141,13 +142,13 @@ namespace project_itransition.Controllers
                 }
                 else
                 {
-                    ModelState.AddModelError("", "Email not found!");
+                    ModelState.AddModelError("", @Resource.EmailNotFound!);
                     return View(model);
                 }
             }
             else
             {
-                ModelState.AddModelError("", "Something went wrong. try again.");
+                ModelState.AddModelError("", @Resource.SomethingWentWrongTryAgain);
                 return View(model);
             }
         }

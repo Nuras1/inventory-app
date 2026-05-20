@@ -349,6 +349,24 @@ namespace project_itransition.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Email not found.
+        /// </summary>
+        public static string EmailNotFound {
+            get {
+                return ResourceManager.GetString("EmailNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Email or password is incorrect.
+        /// </summary>
+        public static string EmailOrPasswordIsIncorrect {
+            get {
+                return ResourceManager.GetString("EmailOrPasswordIsIncorrect", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Field.
         /// </summary>
         public static string Field {
@@ -421,6 +439,15 @@ namespace project_itransition.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Item deleted successfully.
+        /// </summary>
+        public static string ItemDeletedSuccessfully {
+            get {
+                return ResourceManager.GetString("ItemDeletedSuccessfully", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Item Details.
         /// </summary>
         public static string ItemDetails {
@@ -444,6 +471,15 @@ namespace project_itransition.Resources {
         public static string Items {
             get {
                 return ResourceManager.GetString("Items", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Item updated successfully.
+        /// </summary>
+        public static string ItemUpdatedSuccessfully {
+            get {
+                return ResourceManager.GetString("ItemUpdatedSuccessfully", resourceCulture);
             }
         }
         
@@ -736,6 +772,24 @@ namespace project_itransition.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Something is wrong.
+        /// </summary>
+        public static string SomethingIsWrong {
+            get {
+                return ResourceManager.GetString("SomethingIsWrong", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Something went wrong try again.
+        /// </summary>
+        public static string SomethingWentWrongTryAgain {
+            get {
+                return ResourceManager.GetString("SomethingWentWrongTryAgain", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Status.
         /// </summary>
         public static string Status {
@@ -750,6 +804,24 @@ namespace project_itransition.Resources {
         public static string Tags {
             get {
                 return ResourceManager.GetString("Tags", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на This inventory was modified.
+        /// </summary>
+        public static string ThisInventoryWasModified {
+            get {
+                return ResourceManager.GetString("ThisInventoryWasModified", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на This item was modified by another user.
+        /// </summary>
+        public static string ThisItemWasModified {
+            get {
+                return ResourceManager.GetString("ThisItemWasModified", resourceCulture);
             }
         }
         
@@ -840,6 +912,15 @@ namespace project_itransition.Resources {
         public static string Yes {
             get {
                 return ResourceManager.GetString("Yes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Your account is blocked.
+        /// </summary>
+        public static string YourAccountIsBlocked {
+            get {
+                return ResourceManager.GetString("YourAccountIsBlocked", resourceCulture);
             }
         }
     }

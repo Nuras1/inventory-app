@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using project_itransition.Data;
 using project_itransition.Helpers;
 using project_itransition.Models.Entities;
+using project_itransition.Resources;
 using project_itransition.ViewModels.Item;
 
 
@@ -230,7 +231,7 @@ namespace project_itransition.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    ModelState.AddModelError("", "This item was modified by another user.");
+                    ModelState.AddModelError("", @Resource.ThisItemWasModified);
 
                     model.Fields = await context.InventoryFields
                         .Where(f => f.InventoryId == item.InventoryId)
@@ -240,7 +241,7 @@ namespace project_itransition.Controllers
                     return View(model);
                 }
 
-                TempData["Success"] = "Item updated successfully";
+                TempData["Success"] = @Resource.ItemUpdatedSuccessfully;
 
                 return RedirectToAction("Details", "Inventory", new { id = item.InventoryId });
             }
@@ -297,7 +298,7 @@ namespace project_itransition.Controllers
 
             await context.SaveChangesAsync();
 
-            TempData["Success"] = "Item deleted successfully";
+            TempData["Success"] = @Resource.ItemDeletedSuccessfully;
 
             return RedirectToAction("Details", "Inventory", new { id = inventoryId });
         }
