@@ -117,7 +117,7 @@ namespace project_itransition.Controllers
                 }
                 await context.SaveChangesAsync();
 
-                TempData["Success"] = "Item created successfully";
+                TempData["Success"] = @Resource.ItemCreatedSuccessfully;
 
                 return RedirectToAction("Details", "Inventory", new { id = model.InventoryId });
             }

@@ -39,11 +39,10 @@ namespace project_itransition.Controllers
                 {
                     return RedirectToAction("Index", "Inventory");
                 }
-                else
-                {
-                    ModelState.AddModelError("", @Resource.EmailOrPasswordIsIncorrect);
-                    return View(model);
-                }
+
+                ModelState.AddModelError("", @Resource.EmailOrPasswordIsIncorrect);
+                return View(model);
+
             }
             return View(model);
         }
@@ -100,10 +99,9 @@ namespace project_itransition.Controllers
                     ModelState.AddModelError("", @Resource.SomethingIsWrong);
                     return View(model);
                 }
-                else
-                {
-                    return RedirectToAction("ChangePassword", "Account", new { username = user.UserName });
-                }
+
+                return RedirectToAction("ChangePassword", "Account", new { username = user.UserName });
+
             }
             return View(model);
         }
@@ -140,17 +138,15 @@ namespace project_itransition.Controllers
                         return View(model);
                     }
                 }
-                else
-                {
-                    ModelState.AddModelError("", @Resource.EmailNotFound!);
-                    return View(model);
-                }
-            }
-            else
-            {
-                ModelState.AddModelError("", @Resource.SomethingWentWrongTryAgain);
+
+                ModelState.AddModelError("", @Resource.EmailNotFound!);
                 return View(model);
+
             }
+
+            ModelState.AddModelError("", @Resource.SomethingWentWrongTryAgain);
+            return View(model);
+
         }
         [HttpGet]
         public IActionResult ExternalLogin(string provider)

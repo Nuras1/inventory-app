@@ -32,7 +32,7 @@ namespace project_itransition.Controllers
 
             var user = await userManager.GetUserAsync(User);
 
-            return user != null && (inventory.OwnerId == user.Id || User.IsInRole("Admin"));
+            return user != null && (inventory.OwnerId == user.Id || IsAdmin());
         }
         public async Task<IActionResult> Create(Guid inventoryId)
         {
@@ -79,6 +79,10 @@ namespace project_itransition.Controllers
 
             return RedirectToAction("Details", "Inventory", new { id = model.InventoryId });
 
+        }
+        private bool IsAdmin()
+        {
+            return User.IsInRole("Admin");
         }
     }
 }

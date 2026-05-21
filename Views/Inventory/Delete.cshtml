@@ -11,7 +11,7 @@
 
         <p class="fs-5">
 
-            @Resource.AreYouSureYouWantToDelete :
+            @Resource.AreYouSureYouWantToDelete:
 
             <strong>
                 @Model.Title
@@ -19,11 +19,10 @@
 
         </p>
 
-        <form asp-action="Delete"
-              method="post">
+        <form asp-action="Delete" method="post">
 
-            <input type="hidden"
-                   asp-for="Id" />
+            <input type="hidden" asp-for="Id" />
+
             @if (ViewBag.CanEdit == true)
             {
                 <button class="btn btn-danger px-4">
@@ -33,7 +32,7 @@
                 </button>
             }
             <a asp-action="MyInventories"
-               class="btn btn-light ms-2">
+               class="btn btn-outline-secondary ms-2">
 
                 @Resource.Cancel
 

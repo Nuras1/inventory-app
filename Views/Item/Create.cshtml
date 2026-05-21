@@ -35,15 +35,11 @@
             }
             else if (field.FieldType == "checkbox")
             {
-                <input type="checkbox"
-                       name="Values[@field.Id]"
-                       value="true" />
+                <input type="checkbox" name="Values[@field.Id]" value="true" />
             }
             else
             {
-                <input type="text"
-                       name="Values[@field.Id]"
-                       class="form-control" />
+                <input type="text" name="Values[@field.Id]" class="form-control" />
             }
 
             @if (!string.IsNullOrEmpty(field.Description))

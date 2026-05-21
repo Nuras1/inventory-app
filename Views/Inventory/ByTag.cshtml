@@ -14,13 +14,14 @@
 </div>
 
 <p class="text-body-secondary mb-4">
-    @Model.Count() inventories found with this tag.
+    @Model.Count() @Resource.InventoriesFoundWithThisTag.
 </p>
 
 <a asp-action="Index"
    class="btn btn-outline-secondary btn-sm mb-4">
 
-    ← @Resource.BackToInventories
+    <i class="bi bi-arrow-left"></i>
+    @Resource.BackToInventories
 
 </a>
 

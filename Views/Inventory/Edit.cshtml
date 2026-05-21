@@ -39,8 +39,7 @@
 
                 <textarea asp-for="Description"
                           class="form-control"
-                          rows="4">
-                </textarea>
+                          rows="4"></textarea>
 
             </div>
 
@@ -58,7 +57,7 @@
 
                 <label class="form-label">
 
-                    Custom ID Format
+                    @Resource.CustomIDFormat
 
                 </label>
 
@@ -89,14 +88,13 @@
                 </label>
 
             </div>
-            @if (ViewBag.CanEdit == true)
-            {
-                <button type="submit" class="btn btn-primary px-4">
 
-                    @Resource.SaveChanges
+            <button type="submit" class="btn btn-primary px-4">
 
-                </button>
-            }
+                @Resource.SaveChanges
+
+            </button>
+
             <a asp-action="MyInventories"
                class="btn btn-light ms-2">
 

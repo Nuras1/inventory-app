@@ -117,8 +117,14 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AccessDenied" xml:space="preserve">
+    <value>Доступ запрещен. У вас нет доступа.</value>
+  </data>
   <data name="Actions" xml:space="preserve">
     <value>Действия</value>
+  </data>
+  <data name="Active" xml:space="preserve">
+    <value>Активен</value>
   </data>
   <data name="AddCustomFields" xml:space="preserve">
     <value>Добавьте пользовательские поля</value>
@@ -126,11 +132,17 @@
   <data name="AddField" xml:space="preserve">
     <value>Добавить поле</value>
   </data>
+  <data name="Admin" xml:space="preserve">
+    <value>Админ</value>
+  </data>
   <data name="AlreadyHaveAnAccount" xml:space="preserve">
     <value>Уже есть аккаунт ?</value>
   </data>
   <data name="AreYouSureYouWantToDelete" xml:space="preserve">
     <value>Вы уверены что хотите удалить</value>
+  </data>
+  <data name="AuthenticatedUsersCanAddAndEditItemsInPublicInventories" xml:space="preserve">
+    <value>Аутентифицированные пользователи могут добавлять и сохранять товары в общедоступных инвентарях.</value>
   </data>
   <data name="Back" xml:space="preserve">
     <value>Назад</value>
@@ -138,8 +150,14 @@
   <data name="BackToInventories" xml:space="preserve">
     <value>Вернуться в инвентарь</value>
   </data>
+  <data name="BasicInformation" xml:space="preserve">
+    <value>Базовая информация</value>
+  </data>
   <data name="Block" xml:space="preserve">
     <value>Заблокировать</value>
+  </data>
+  <data name="Blocked" xml:space="preserve">
+    <value>Заблокирован</value>
   </data>
   <data name="Cancel" xml:space="preserve">
     <value>Отменить</value>
@@ -152,6 +170,12 @@
   </data>
   <data name="ConfirmPassword" xml:space="preserve">
     <value>Подтвердите пароль</value>
+  </data>
+  <data name="ContinueWithGitHub" xml:space="preserve">
+    <value>Продолжить с GitHub</value>
+  </data>
+  <data name="ContinueWithGoogle" xml:space="preserve">
+    <value>Продолжить с Google</value>
   </data>
   <data name="Create" xml:space="preserve">
     <value>Создать</value>
@@ -174,11 +198,20 @@
   <data name="CreateItem" xml:space="preserve">
     <value>Создать элемент</value>
   </data>
+  <data name="Custom" xml:space="preserve">
+    <value>Пользовательское</value>
+  </data>
   <data name="CustomField" xml:space="preserve">
     <value>Пользовательские поля</value>
   </data>
   <data name="CustomID" xml:space="preserve">
     <value>Пользовательское id</value>
+  </data>
+  <data name="CustomIDFormat" xml:space="preserve">
+    <value>Пользовательский формат идентификатора</value>
+  </data>
+  <data name="Customization" xml:space="preserve">
+    <value>Редактирование</value>
   </data>
   <data name="CustomValues" xml:space="preserve">
     <value>Пользовательские значения</value>
@@ -237,11 +270,17 @@
   <data name="Inventories" xml:space="preserve">
     <value>Инвентари</value>
   </data>
+  <data name="InventoriesFoundWithThisTag" xml:space="preserve">
+    <value>Инвентари найденные с этим тегом</value>
+  </data>
   <data name="Inventory" xml:space="preserve">
     <value>Инвентарь</value>
   </data>
   <data name="InventoryDetails" xml:space="preserve">
     <value>Информация об инвентаре</value>
+  </data>
+  <data name="ItemCreatedSuccessfully" xml:space="preserve">
+    <value>Элемент создан успешно</value>
   </data>
   <data name="ItemDeletedSuccessfully" xml:space="preserve">
     <value>Элемент удален успешно</value>
@@ -306,6 +345,9 @@
   <data name="Open" xml:space="preserve">
     <value>Открыть</value>
   </data>
+  <data name="Or" xml:space="preserve">
+    <value>Или</value>
+  </data>
   <data name="Owner" xml:space="preserve">
     <value>Владелец</value>
   </data>
@@ -347,6 +389,15 @@
   </data>
   <data name="SearchResults" xml:space="preserve">
     <value>Результаты поиска</value>
+  </data>
+  <data name="SelectedInventory" xml:space="preserve">
+    <value>Выбранный инвентарь</value>
+  </data>
+  <data name="SelectedUser" xml:space="preserve">
+    <value>Выбранный пользователь</value>
+  </data>
+  <data name="SeparateTagsWithCommas" xml:space="preserve">
+    <value>Разделяйте теги запятыми</value>
   </data>
   <data name="ShowInItemTable" xml:space="preserve">
     <value>Показывать в таблице</value>

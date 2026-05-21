@@ -11,7 +11,39 @@
     @Resource.CreateInventory
 
 </a>
+<div class="bulk-actions-toolbar mb-4 d-none"
+     id="bulkToolbar">
 
+    <div class="d-flex flex-wrap gap-2 align-items-center">
+
+        <span class="toolbar-title">
+            @Resource.SelectedInventory
+        </span>
+
+        <a id="openInventoryBtn"
+           class="btn btn-outline-primary rounded-pill px-4">
+
+            @Resource.Open
+
+        </a>
+
+        <a id="editInventoryBtn"
+           class="btn btn-primary rounded-pill px-4">
+
+            @Resource.Edit
+
+        </a>
+
+        <a id="deleteInventoryBtn"
+           class="btn btn-danger rounded-pill px-4">
+
+            @Resource.Delete
+
+        </a>
+
+    </div>
+
+</div>
 <div class="card shadow-sm border rounded-4 bg-body-tertiary">
 
     <div class="card-body">
@@ -21,16 +53,13 @@
             <thead>
 
                 <tr>
+                    <th style="width: 50px;"></th>
 
                     <th>@Resource.Title</th>
 
                     <th>@Resource.Category</th>
 
                     <th>@Resource.Public</th>
-
-                    <th style="width:180px">
-                        @Resource.Actions
-                    </th>
 
                 </tr>
 
@@ -40,18 +69,20 @@
 
                 @foreach (var item in Model)
                 {
-                    <tr>
+                    <tr class="inventory-row"
+                        data-id="@item.Id">
 
                         <td>
 
-                            <a asp-action="Details"
-                               asp-route-id="@item.Id"
-                               class="fw-semibold text-decoration-none">
+                            <input type="radio"
+                                   name="selectedInventory"
+                                   value="@item.Id"
+                                   class="form-check-input inventory-selector">
 
+                        </td>
+
+                        <td class="fw-semibold">
                                 @item.Title
-
-                            </a>
-
                         </td>
 
                         <td>
@@ -72,66 +103,6 @@
                                     @Resource.Private
                                 </span>
                             }
-
-                        </td>
-
-                        <td class="text-end">
-
-                            <div class="dropdown">
-
-                                <button class="btn btn-sm border"
-                                        type="button"
-                                        data-bs-toggle="dropdown">
-
-                                    ⋮
-
-                                </button>
-
-                                <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0">
-
-                                    <li>
-
-                                        <a class="dropdown-item"
-                                           asp-action="Details"
-                                           asp-route-id="@item.Id">
-
-                                            @Resource.Open
-
-                                        </a>
-
-                                    </li>
-
-                                    <li>
-
-                                        <a class="dropdown-item"
-                                           asp-action="Edit"
-                                           asp-route-id="@item.Id">
-
-                                            @Resource.Edit
-
-                                        </a>
-
-                                    </li>
-
-                                    <li>
-                                        <hr class="dropdown-divider">
-                                    </li>
-
-                                    <li>
-
-                                        <a class="dropdown-item text-danger"
-                                           asp-action="Delete"
-                                           asp-route-id="@item.Id">
-
-                                            @Resource.Delete
-
-                                        </a>
-
-                                    </li>
-
-                                </ul>
-
-                            </div>
 
                         </td>
 

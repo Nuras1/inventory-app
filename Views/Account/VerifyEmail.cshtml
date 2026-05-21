@@ -1,8 +1,8 @@
 ﻿@using project_itransition.Resources
-@using project_itransition.ViewModels.Account;
+@using project_itransition.ViewModels.Account
 @model VerifyEmailViewModel
 @{
-    ViewData["Title"] = "Verify Email";
+    ViewData["Title"] = @Resource.VerifyEmail;
     Layout = "~/Views/Shared/_AccountLayout.cshtml";
 }
 <div class="account-container">
@@ -15,9 +15,9 @@
             <input asp-for="Email" class="form-control" />
             <span asp-validation-for="Email" class="text-danger"></span>
         </div>
-        <input type="submit" value="Verify" class="btn btn-success w-100 p-2" />
+            <input type="submit" value="Resource.Verify" class="btn btn-success w-100 p-2" />
         <div class="text-center mt-2">
-                <a asp-controller="Home" asp-action="Index" class="text-decoration-none mt-3">@Resource.Back</a>
+                <a asp-controller="Inventory" asp-action="Index" class="text-decoration-none mt-3">@Resource.Back</a>
         </div>
         </form>
     </div>

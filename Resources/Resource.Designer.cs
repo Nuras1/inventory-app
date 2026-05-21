@@ -61,11 +61,29 @@ namespace project_itransition.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Access denied. You don&apos;t have access.
+        /// </summary>
+        public static string AccessDenied {
+            get {
+                return ResourceManager.GetString("AccessDenied", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Actions.
         /// </summary>
         public static string Actions {
             get {
                 return ResourceManager.GetString("Actions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Active.
+        /// </summary>
+        public static string Active {
+            get {
+                return ResourceManager.GetString("Active", resourceCulture);
             }
         }
         
@@ -88,6 +106,15 @@ namespace project_itransition.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Admin.
+        /// </summary>
+        public static string Admin {
+            get {
+                return ResourceManager.GetString("Admin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Already have an account?.
         /// </summary>
         public static string AlreadyHaveAnAccount {
@@ -102,6 +129,15 @@ namespace project_itransition.Resources {
         public static string AreYouSureYouWantToDelete {
             get {
                 return ResourceManager.GetString("AreYouSureYouWantToDelete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Authenticated users can add and save items to public inventories.
+        /// </summary>
+        public static string AuthenticatedUsersCanAddAndEditItemsInPublicInventories {
+            get {
+                return ResourceManager.GetString("AuthenticatedUsersCanAddAndEditItemsInPublicInventories", resourceCulture);
             }
         }
         
@@ -124,11 +160,29 @@ namespace project_itransition.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Basic information.
+        /// </summary>
+        public static string BasicInformation {
+            get {
+                return ResourceManager.GetString("BasicInformation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Block.
         /// </summary>
         public static string Block {
             get {
                 return ResourceManager.GetString("Block", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Blocked.
+        /// </summary>
+        public static string Blocked {
+            get {
+                return ResourceManager.GetString("Blocked", resourceCulture);
             }
         }
         
@@ -165,6 +219,24 @@ namespace project_itransition.Resources {
         public static string ConfirmPassword {
             get {
                 return ResourceManager.GetString("ConfirmPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Continue With GitHub.
+        /// </summary>
+        public static string ContinueWithGitHub {
+            get {
+                return ResourceManager.GetString("ContinueWithGitHub", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Continue with Google.
+        /// </summary>
+        public static string ContinueWithGoogle {
+            get {
+                return ResourceManager.GetString("ContinueWithGoogle", resourceCulture);
             }
         }
         
@@ -232,6 +304,15 @@ namespace project_itransition.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Custom.
+        /// </summary>
+        public static string Custom {
+            get {
+                return ResourceManager.GetString("Custom", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Custom Fields.
         /// </summary>
         public static string CustomField {
@@ -246,6 +327,24 @@ namespace project_itransition.Resources {
         public static string CustomID {
             get {
                 return ResourceManager.GetString("CustomID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Custom id Format.
+        /// </summary>
+        public static string CustomIDFormat {
+            get {
+                return ResourceManager.GetString("CustomIDFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Customization.
+        /// </summary>
+        public static string Customization {
+            get {
+                return ResourceManager.GetString("Customization", resourceCulture);
             }
         }
         
@@ -421,6 +520,15 @@ namespace project_itransition.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Inventories found with this tag.
+        /// </summary>
+        public static string InventoriesFoundWithThisTag {
+            get {
+                return ResourceManager.GetString("InventoriesFoundWithThisTag", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Inventory.
         /// </summary>
         public static string Inventory {
@@ -435,6 +543,15 @@ namespace project_itransition.Resources {
         public static string InventoryDetails {
             get {
                 return ResourceManager.GetString("InventoryDetails", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Item created successfully.
+        /// </summary>
+        public static string ItemCreatedSuccessfully {
+            get {
+                return ResourceManager.GetString("ItemCreatedSuccessfully", resourceCulture);
             }
         }
         
@@ -628,6 +745,15 @@ namespace project_itransition.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на OR.
+        /// </summary>
+        public static string Or {
+            get {
+                return ResourceManager.GetString("Or", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Owner.
         /// </summary>
         public static string Owner {
@@ -750,6 +876,33 @@ namespace project_itransition.Resources {
         public static string SearchResults {
             get {
                 return ResourceManager.GetString("SearchResults", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Selected Inventory.
+        /// </summary>
+        public static string SelectedInventory {
+            get {
+                return ResourceManager.GetString("SelectedInventory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Selected user.
+        /// </summary>
+        public static string SelectedUser {
+            get {
+                return ResourceManager.GetString("SelectedUser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Separate tags with commas.
+        /// </summary>
+        public static string SeparateTagsWithCommas {
+            get {
+                return ResourceManager.GetString("SeparateTagsWithCommas", resourceCulture);
             }
         }
         

@@ -117,8 +117,14 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AccessDenied" xml:space="preserve">
+    <value>Access denied. You don't have access</value>
+  </data>
   <data name="Actions" xml:space="preserve">
     <value>Actions</value>
+  </data>
+  <data name="Active" xml:space="preserve">
+    <value>Active</value>
   </data>
   <data name="AddCustomFields" xml:space="preserve">
     <value>Add custom fields</value>
@@ -126,11 +132,17 @@
   <data name="AddField" xml:space="preserve">
     <value>Add Field</value>
   </data>
+  <data name="Admin" xml:space="preserve">
+    <value>Admin</value>
+  </data>
   <data name="AlreadyHaveAnAccount" xml:space="preserve">
     <value>Already have an account?</value>
   </data>
   <data name="AreYouSureYouWantToDelete" xml:space="preserve">
     <value>Are you sure you want to delete</value>
+  </data>
+  <data name="AuthenticatedUsersCanAddAndEditItemsInPublicInventories" xml:space="preserve">
+    <value>Authenticated users can add and save items to public inventories</value>
   </data>
   <data name="Back" xml:space="preserve">
     <value>Back</value>
@@ -138,8 +150,14 @@
   <data name="BackToInventories" xml:space="preserve">
     <value>Back to inventories</value>
   </data>
+  <data name="BasicInformation" xml:space="preserve">
+    <value>Basic information</value>
+  </data>
   <data name="Block" xml:space="preserve">
     <value>Block</value>
+  </data>
+  <data name="Blocked" xml:space="preserve">
+    <value>Blocked</value>
   </data>
   <data name="Cancel" xml:space="preserve">
     <value>Cancel</value>
@@ -152,6 +170,12 @@
   </data>
   <data name="ConfirmPassword" xml:space="preserve">
     <value>Confirm Password</value>
+  </data>
+  <data name="ContinueWithGitHub" xml:space="preserve">
+    <value>Continue With GitHub</value>
+  </data>
+  <data name="ContinueWithGoogle" xml:space="preserve">
+    <value>Continue with Google</value>
   </data>
   <data name="Create" xml:space="preserve">
     <value>Create </value>
@@ -174,11 +198,20 @@
   <data name="CreateItem" xml:space="preserve">
     <value>Create Item</value>
   </data>
+  <data name="Custom" xml:space="preserve">
+    <value>Custom</value>
+  </data>
   <data name="CustomField" xml:space="preserve">
     <value>Custom Fields</value>
   </data>
   <data name="CustomID" xml:space="preserve">
     <value>Custom Id</value>
+  </data>
+  <data name="CustomIDFormat" xml:space="preserve">
+    <value>Custom id Format</value>
+  </data>
+  <data name="Customization" xml:space="preserve">
+    <value>Customization</value>
   </data>
   <data name="CustomValues" xml:space="preserve">
     <value>Custom Values</value>
@@ -237,11 +270,17 @@
   <data name="Inventories" xml:space="preserve">
     <value>Inventories</value>
   </data>
+  <data name="InventoriesFoundWithThisTag" xml:space="preserve">
+    <value>Inventories found with this tag</value>
+  </data>
   <data name="Inventory" xml:space="preserve">
     <value>Inventory</value>
   </data>
   <data name="InventoryDetails" xml:space="preserve">
     <value>Inventory Details</value>
+  </data>
+  <data name="ItemCreatedSuccessfully" xml:space="preserve">
+    <value>Item created successfully</value>
   </data>
   <data name="ItemDeletedSuccessfully" xml:space="preserve">
     <value>Item deleted successfully</value>
@@ -306,6 +345,9 @@
   <data name="Open" xml:space="preserve">
     <value>Open</value>
   </data>
+  <data name="Or" xml:space="preserve">
+    <value>OR</value>
+  </data>
   <data name="Owner" xml:space="preserve">
     <value>Owner</value>
   </data>
@@ -347,6 +389,15 @@
   </data>
   <data name="SearchResults" xml:space="preserve">
     <value>Search Results</value>
+  </data>
+  <data name="SelectedInventory" xml:space="preserve">
+    <value>Selected Inventory</value>
+  </data>
+  <data name="SelectedUser" xml:space="preserve">
+    <value>Selected user</value>
+  </data>
+  <data name="SeparateTagsWithCommas" xml:space="preserve">
+    <value>Separate tags with commas</value>
   </data>
   <data name="ShowInItemTable" xml:space="preserve">
     <value>Show in item table</value>

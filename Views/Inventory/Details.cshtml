@@ -1,8 +1,9 @@
-﻿@using project_itransition.Resources
+﻿@using project_itransition.Models.Entities
+@using project_itransition.Resources
 @model project_itransition.Models.Entities.Inventory
 
 @{
-    ViewData["Title"] = "Inventory Details";
+    ViewData["Title"] = @Resource.InventoryDetails;
 }
 
 <div class="d-flex justify-content-between align-items-start mb-4">
@@ -57,9 +58,7 @@
 
                 @foreach (var tag in Model.Tags)
                 {
-                    <a asp-controller="Inventory"
-                       asp-action="ByTag"
-                       asp-route-tag="@tag.Name"
+                    <a asp-controller="Inventory" asp-action="ByTag" asp-route-tag="@tag.Name"
                        class="badge text-bg-secondary text-decoration-none px-3 py-2">
 
                         #@tag.Name
@@ -75,8 +74,7 @@
     <div class="d-flex gap-2 align-items-center">
         @if (ViewBag.CanEdit == true)
         {
-            <a asp-action="Edit"
-               asp-route-id="@Model.Id"
+            <a asp-action="Edit" asp-route-id="@Model.Id"
                class="btn btn-primary rounded-pill px-4 shadow-sm">
                 @Resource.Edit
 
@@ -84,8 +82,7 @@
         }
         @if (ViewBag.CanEdit == true)
         {
-            <a asp-action="Delete"
-               asp-route-id="@Model.Id"
+            <a asp-action="Delete" asp-route-id="@Model.Id"
                class="btn btn-danger rounded-pill px-4 shadow-sm">
 
                 @Resource.Delete
@@ -102,10 +99,7 @@
 
     <li class="nav-item" role="presentation">
 
-        <button class="nav-link active"
-                data-bs-toggle="tab"
-                data-bs-target="#items"
-                type="button">
+        <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#items" type="button">
 
             @Resource.Items
 
@@ -115,10 +109,7 @@
 
     <li class="nav-item" role="presentation">
 
-        <button class="nav-link"
-                data-bs-toggle="tab"
-                data-bs-target="#fields"
-                type="button">
+        <button class="nav-link" data-bs-toggle="tab" data-bs-target="#fields" type="button">
 
             @Resource.Fields
 
@@ -130,9 +121,7 @@
 
 <div class="tab-content">
 
-    <div class="tab-pane fade show active"
-         id="items"
-         role="tabpanel">
+    <div class="tab-pane fade show active" id="items" role="tabpanel">
 
         <div class="d-flex justify-content-between align-items-center mb-3">
 
@@ -142,9 +131,7 @@
 
             @if (ViewBag.CanManageItems == true)
             {
-                <a asp-controller="Item"
-                   asp-action="Create"
-                   asp-route-inventoryId="@Model.Id"
+                <a asp-controller="Item" asp-action="Create" asp-route-inventoryId="@Model.Id"
                    class="btn btn-primary rounded-pill px-4 shadow-sm">
 
                     @Resource.CreateItem
@@ -154,7 +141,7 @@
 
         </div>
 
-        <div class="card shadow-sm border-0 rounded-4 mb-4">
+        <div class="items-wrapper mb-4">
 
             <div class="card-body p-0">
 
@@ -174,9 +161,9 @@
                 }
                 else
                 {
-                    <table class="table table-hover align-middle mb-0">
+                    <table class="table align-middle mb-0 items-table">
 
-                        <thead class="table">
+                        <thead class="table-header-modern">
 
                             <tr>
 
@@ -193,13 +180,6 @@
 
                                 <th>@Resource.Created</th>
 
-                                @if (ViewBag.CanManageItems == true)
-                                {
-                                    <th style="width:120px">
-                                        @Resource.Actions
-                                    </th>
-                                }
-
                             </tr>
 
                         </thead>
@@ -208,23 +188,19 @@
 
                             @foreach (var item in Model.Items)
                             {
-                                <tr>
+                                <tr class="clickable-row"
+                                    data-href="@Url.Action("Details", "Item", new { id = item.Id })">
 
                                     <td>
-
-                                        <a asp-controller="Item"
-                                           asp-action="Details"
-                                           asp-route-id="@item.Id"
-                                           class="fw-semibold text-decoration-none">
-
+                                        <div class="item-name">
                                             @item.Name
-
-                                        </a>
-
+                                        </div>
                                     </td>
 
                                     <td>
-                                        @item.CustomId
+                                        <span class="custom-id-badge">
+                                            @item.CustomId
+                                        </span>
                                     </td>
 
                                     @foreach (var field in Model.InventoryFields
@@ -238,8 +214,7 @@
 
                                             @if (field.FieldType == "link")
                                             {
-                                                <a href="@value?.Value"
-                                                   target="_blank">
+                                                <a href="@value?.Value" target="_blank">
 
                                                     @value?.Value
 
@@ -279,71 +254,10 @@
                                     <td>
                                         @item.CreatedAt.ToLocalTime()
                                     </td>
-
-                                    <td class="text-end">
-
-                                        <div class="dropdown">
-                                            @if (ViewBag.CanManageItems == true)
-                                            {
-                                                <button class="btn btn-sm btn-outline-secondary"
-                                                        type="button"
-                                                        data-bs-toggle="dropdown">
-
-                                                    ⋮
-
-                                                </button>
-                                            }
-                                            <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0">
-
-                                                <li>
-
-                                                    <a class="dropdown-item"
-                                                       asp-controller="Item"
-                                                       asp-action="Details"
-                                                       asp-route-id="@item.Id">
-
-                                                        @Resource.Open
-
-                                                    </a>
-
-                                                </li>
-
-                                                <li>
-                                                    @if (ViewBag.CanManageItems == true)
-                                                    {
-                                                        <a class="dropdown-item"
-                                                           asp-controller="Item"
-                                                           asp-action="Edit"
-                                                           asp-route-id="@item.Id">
-
-                                                            @Resource.Edit
-
-                                                        </a>
-                                                    }
-                                                </li>
-
-                                                <li>
-                                                    <hr class="dropdown-divider">
-                                                </li>
-
-                                                <li>
-                                                    @if (ViewBag.CanManageItems == true)
-                                                    {
-                                                        <a class="dropdown-item text-danger"
-                                                           asp-controller="Item"
-                                                           asp-action="Delete"
-                                                           asp-route-id="@item.Id">
-
-                                                            @Resource.Delete
-
-                                                        </a>
-                                                    }
-                                                </li>
-
-                                            </ul>
-
-                                        </div>
-
+                                    <td class="text-end pe-4">
+                                        <span class="row-indicator">
+                                            <i class="bi bi-chevron-right"></i>
+                                        </span>
                                     </td>
 
                                 </tr>
@@ -360,9 +274,7 @@
 
     </div>
 
-    <div class="tab-pane fade"
-         id="fields"
-         role="tabpanel">
+    <div class="tab-pane fade" id="fields" role="tabpanel">
 
         <div class="d-flex justify-content-between align-items-center mb-3">
 
@@ -371,12 +283,11 @@
             </h3>
             @if (ViewBag.CanEdit == true)
             {
-                <a asp-controller="InventoryField"
-                   asp-action="Create"
-                   asp-route-inventoryId="@Model.Id"
+                <a asp-controller="InventoryField" asp-action="Create" asp-route-inventoryId="@Model.Id"
                    class="btn btn-outline-primary">
 
-                    + @Resource.AddField
+                    <i class="bi bi-plus-lg"></i>
+                    @Resource.AddField
 
                 </a>
             }
@@ -402,9 +313,9 @@
                 }
                 else
                 {
-                    <table class="table table-hover align-middle mb-0">
+                    <table class="table align-middle mb-0 items-table">
 
-                        <thead class="table">
+                        <thead class="table-header-modern">
 
                             <tr>
 
@@ -442,13 +353,13 @@
 
                                         @if (field.ShowInTable)
                                         {
-                                            <span class="badge bg-success">
+                                            <span class="boolean-badge boolean-yes">
                                                 @Resource.Yes
                                             </span>
                                         }
                                         else
                                         {
-                                            <span class="badge bg-secondary">
+                                            <span class="boolean-badge boolean-no">
                                                 @Resource.No
                                             </span>
                                         }

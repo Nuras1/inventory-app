@@ -51,6 +51,7 @@ namespace project_itransition.Controllers
             }
             return RedirectToAction("Index");
         }
+        [HttpPost]
         public async Task<IActionResult> UnBlock(UserManagementViewModel model)
         {
             var user = await userManager.FindByIdAsync(model.Id);
@@ -81,6 +82,7 @@ namespace project_itransition.Controllers
             }
             return RedirectToAction("Index");
         }
+        [HttpPost]
         public async Task<IActionResult> MakeAdmin(UserManagementViewModel model)
         {
             var user = await userManager.FindByIdAsync(model.Id);
@@ -91,6 +93,7 @@ namespace project_itransition.Controllers
             }
             return RedirectToAction("Index");
         }
+        [HttpPost]
         public async Task<IActionResult> RemoveAdmin(UserManagementViewModel model)
         {
             var user = await userManager.FindByIdAsync(model.Id);

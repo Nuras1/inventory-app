@@ -33,10 +33,7 @@ namespace project_itransition.Data
                 .WithMany(t => t.Inventories);
 
             builder.Entity<Item>()
-                .HasIndex(i => new
-                {
-                    i.InventoryId, i.CustomId
-                })
+                .HasIndex(i => new { i.InventoryId, i.CustomId })
                 .IsUnique();
         }
     }

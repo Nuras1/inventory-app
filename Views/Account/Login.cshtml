@@ -3,7 +3,7 @@
 @model LoginViewModel
 
 @{
-    ViewData["Title"] = "Login";
+    ViewData["Title"] = @Resource.Login;
     Layout = "~/Views/Shared/_AccountLayout.cshtml";
 }
 
@@ -65,17 +65,15 @@
 
                 </div>
 
-                <a asp-controller="Account" asp-action="VerifyEmail" class="text-decoration-none"> @Resource.ForgotPassword ? </a>
+                <a asp-controller="Account" asp-action="VerifyEmail" class="text-decoration-none"> @Resource.ForgotPassword? </a>
 
             </div>
 
-            <input type="submit"
-                   value="@Resource.Login"
-                   class="btn btn-success w-100 py-2 rounded-3 shadow-sm" />
+            <input type="submit" value="@Resource.Login" class="btn btn-success w-100 py-2 rounded-3 shadow-sm" />
 
             <p class="text-center mt-3 mb-0">
 
-                @Resource.DonHaveAnAccount ?
+                @Resource.DonHaveAnAccount?
 
                 <a asp-controller="Account" asp-action="Register" class="text-decoration-none fw-semibold"> @Resource.Register </a>
 
@@ -92,7 +90,7 @@
                 <hr class="flex-grow-1">
 
                 <span class="px-3 text-body-secondary">
-                    OR
+                    @Resource.Or
                 </span>
 
                 <hr class="flex-grow-1">
@@ -109,7 +107,7 @@
                          alt="Google">
 
                     <span class="fw-semibold text-dark">
-                        Continue with Google
+                        @Resource.ContinueWithGoogle
                     </span>
 
                 </a>
@@ -120,7 +118,7 @@
                     <i class="bi bi-github fs-5"></i>
 
                     <span class="fw-semibold">
-                        Continue with GitHub
+                        @Resource.ContinueWithGitHub
                     </span>
 
                 </a>

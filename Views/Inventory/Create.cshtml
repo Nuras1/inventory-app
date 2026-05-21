@@ -5,11 +5,11 @@
     ViewData["Title"] = Resource.CreateInventory;
 }
 
-<div class="container py-4">
+<div class="container py-4 h-100">
 
-    <div class="row justify-content-center">
+    <div class="d-flex justify-content-center">
 
-        <div class="col-lg-7">
+        <div style="max-width: 900px; width: 100%;">
 
             <h1 class="fw-bold mb-4">
                 @Resource.CreateInventory
@@ -28,7 +28,7 @@
                         <div class="mb-4">
 
                             <h5 class="fw-semibold mb-3">
-                                Basic Information
+                                @Resource.BasicInformation
                             </h5>
 
                             <div class="mb-3">
@@ -84,13 +84,13 @@
                         <div class="mb-4">
 
                             <h5 class="fw-semibold mb-3">
-                                Customization
+                                @Resource.Customization
                             </h5>
 
                             <div class="mb-3">
 
                                 <label class="form-label fw-semibold">
-                                    Custom ID Format
+                                    @Resource.CustomIDFormat
                                 </label>
 
                                 <input asp-for="CustomIdFormat"
@@ -112,22 +112,6 @@
 
                             </div>
 
-                            <div class="mb-0">
-
-                                <label asp-for="Prefix"
-                                       class="form-label fw-semibold">
-                                </label>
-
-                                <input asp-for="Prefix"
-                                       class="form-control rounded-3"
-                                       placeholder="INV" />
-
-                                <span asp-validation-for="Prefix"
-                                      class="text-danger">
-                                </span>
-
-                            </div>
-
                         </div>
 
                         <div class="mb-4">
@@ -136,12 +120,22 @@
                                    class="form-label fw-semibold">
                             </label>
 
-                            <input asp-for="Tags"
-                                   class="form-control rounded-3"
-                                   placeholder="books, fantasy, manga" />
+                            <div class="position-relative">
+
+                                <input asp-for="Tags"
+                                       class="form-control rounded-3"
+                                       id="tagsInput"
+                                       autocomplete="off"
+                                       placeholder="books, fantasy, manga" />
+
+                                <div id="tagsSuggestions"
+                                     class="tag-suggestions d-none">
+                                </div>
+
+                            </div>
 
                             <small class="text-secondary">
-                                Separate tags with commas
+                                @Resource.SeparateTagsWithCommas
                             </small>
 
                         </div>
@@ -156,14 +150,14 @@
                                 <label class="form-check-label fw-semibold"
                                        asp-for="IsPublic">
 
-                                    Public Inventory
+                                    @Resource.PublicInventory
 
                                 </label>
 
                             </div>
 
                             <small class="text-secondary">
-                                Public inventories can be viewed by other users
+                                @Resource.AuthenticatedUsersCanAddAndEditItemsInPublicInventories
                             </small>
 
                         </div>

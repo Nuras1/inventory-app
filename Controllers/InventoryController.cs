@@ -29,7 +29,7 @@ namespace project_itransition.Controllers
         }
         public async Task<IActionResult> MyInventories()
         {
-            var user = await userManager.GetUserAsync(User);
+            var user = await GetCurrentUserAsync();
 
             var inventories = await context.Inventories
                 .Include(i => i.Owner)
@@ -43,7 +43,7 @@ namespace project_itransition.Controllers
                 .Include(i => i.Owner)
                 .Include(i => i.Tags)
                 .Include(i => i.Items)
-                    .ThenInclude(item => item.FieldValues)
+                .ThenInclude(item => item.FieldValues)
                 .Include(i => i.InventoryFields)
                 .Include(i => i.AccessUsers)
                 .FirstOrDefaultAsync(i => i.Id == id);
@@ -53,30 +53,15 @@ namespace project_itransition.Controllers
                 return NotFound();
             }
 
-            var user = await userManager.GetUserAsync(User);
+            var user = await GetCurrentUserAsync();
 
-            if (!inventory.IsPublic)
+            if (!HasInventoryAccess(inventory, user))
             {
-                bool hasAccess = user != null &&
-                    (
-                        inventory.OwnerId == user.Id
-                        || User.IsInRole("Admin")
-                        || inventory.AccessUsers.Any(a => a.UserId == user.Id)
-                    );
-
-                if (!hasAccess)
-                {
-                    TempData["Error"] = "This inventory is private. You do not have access.";
-
-                    return RedirectToAction("Index");
-                }
+                TempData["Error"] = @Resource.AccessDenied;
+                return RedirectToAction(nameof(Index));
             }
 
-            bool canEdit = user != null &&
-                (
-                    inventory.OwnerId == user.Id
-                    || User.IsInRole("Admin")
-                );
+            bool canEdit = user != null && ( inventory.OwnerId == user.Id|| IsAdmin());
 
             ViewBag.CanEdit = canEdit;
 
@@ -84,11 +69,7 @@ namespace project_itransition.Controllers
 
             if (user != null)
             {
-                canManageItems =
-                    inventory.IsPublic
-                    || inventory.OwnerId == user.Id
-                    || User.IsInRole("Admin")
-                    || inventory.AccessUsers.Any(a => a.UserId == user.Id);
+                canManageItems = inventory.IsPublic || inventory.OwnerId == user.Id || IsAdmin() || inventory.AccessUsers.Any(a => a.UserId == user.Id);
             }
 
             ViewBag.CanManageItems = canManageItems;
@@ -106,7 +87,7 @@ namespace project_itransition.Controllers
                 return NotFound();
             }
 
-            var user = await userManager.GetUserAsync(User);
+            var user = await GetCurrentUserAsync();
 
             if (!CanEditInventory(inventory, user))
             {
@@ -126,7 +107,7 @@ namespace project_itransition.Controllers
             {
                 return NotFound();
             }
-            var user = await userManager.GetUserAsync(User);
+            var user = await GetCurrentUserAsync();
 
             if (!CanEditInventory(inventoryToUpdate, user))
             {
@@ -171,7 +152,7 @@ namespace project_itransition.Controllers
             {
                 return NotFound();
             }
-            var user = await userManager.GetUserAsync(User);
+            var user = await GetCurrentUserAsync();
 
             if (!CanEditInventory(inventory, user))
             {
@@ -191,7 +172,7 @@ namespace project_itransition.Controllers
                 return NotFound();
             }
 
-            var user = await userManager.GetUserAsync(User);
+            var user = await GetCurrentUserAsync();
 
             if (!CanEditInventory(inventory, user))
             {
@@ -215,7 +196,7 @@ namespace project_itransition.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = await userManager.GetUserAsync(User);
+                var user = await GetCurrentUserAsync();
                 Inventory inventory = new Inventory
                 {
                     Prefix = model.Prefix,
@@ -228,28 +209,7 @@ namespace project_itransition.Controllers
                 };
                 if (!string.IsNullOrWhiteSpace(model.Tags))
                 {
-                    var tagNames = model.Tags
-                        .Split(',')
-                        .Select(t => t.Trim().ToLower())
-                        .Distinct();
-
-                    foreach (var tagName in tagNames)
-                    {
-                        var existingTag = await context.Tags
-                            .FirstOrDefaultAsync(t => t.Name == tagName);
-
-                        if (existingTag == null)
-                        {
-                            existingTag = new Tag
-                            {
-                                Name = tagName
-                            };
-
-                            context.Tags.Add(existingTag);
-                        }
-
-                        inventory.Tags.Add(existingTag);
-                    }
+                    await AddTagsToInventoryAsync(inventory, model.Tags);
                 }
                 context.Inventories.Add(inventory);
                 await context.SaveChangesAsync();
@@ -291,7 +251,71 @@ namespace project_itransition.Controllers
         }
         private bool CanEditInventory(Inventory inventory, ApplicationUser? user)
         {
-            return user != null && (inventory.OwnerId == user.Id || User.IsInRole("Admin"));
+            return user != null && (inventory.OwnerId == user.Id || IsAdmin());
+        }
+        [HttpGet]
+        public async Task<IActionResult> SearchTags(string term)
+        {
+            if (string.IsNullOrWhiteSpace(term))
+            {
+                return Json(new List<string>());
+            }
+
+            var tags = await context.Tags
+                .Where(t => t.Name.StartsWith(term.ToLower()))
+                .OrderBy(t => t.Name)
+                .Select(t => t.Name)
+                .Take(8)
+                .ToListAsync();
+
+            return Json(tags);
+        }
+        private async Task<ApplicationUser?> GetCurrentUserAsync()
+        {
+            return await userManager.GetUserAsync(User);
+        }
+        private bool IsAdmin()
+        {
+            return User.IsInRole("Admin");
+        }
+        private bool HasInventoryAccess(Inventory inventory, ApplicationUser? user)
+        {
+            if (inventory.IsPublic)
+            {
+                return true;
+            }
+
+            if (user == null)
+            {
+                return false;
+            }
+
+            return inventory.OwnerId == user.Id || IsAdmin() || inventory.AccessUsers.Any(a => a.UserId == user.Id);
+        }
+        private async Task AddTagsToInventoryAsync(Inventory inventory, string tags)
+        {
+            var tagNames = tags
+                .Split(',', StringSplitOptions.RemoveEmptyEntries)
+                .Select(t => t.Trim().ToLower())
+                .Distinct();
+
+            foreach (var tagName in tagNames)
+            {
+                var existingTag = await context.Tags
+                    .FirstOrDefaultAsync(t => t.Name == tagName);
+
+                if (existingTag == null)
+                {
+                    existingTag = new Tag
+                    {
+                        Name = tagName
+                    };
+
+                    context.Tags.Add(existingTag);
+                }
+
+                inventory.Tags.Add(existingTag);
+            }
         }
     }
 }
