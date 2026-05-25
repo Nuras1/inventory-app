@@ -34,7 +34,6 @@ namespace project_itransition.Controllers
                 }
                 var result = await signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, false);
 
-
                 if (result.Succeeded)
                 {
                     return RedirectToAction("Index", "Inventory");
@@ -93,7 +92,7 @@ namespace project_itransition.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = await userManager.FindByNameAsync(model.Email);
+                var user = await userManager.FindByEmailAsync(model.Email);
                 if (user == null)
                 {
                     ModelState.AddModelError("", @Resource.SomethingIsWrong);
@@ -141,7 +140,6 @@ namespace project_itransition.Controllers
 
                 ModelState.AddModelError("", @Resource.EmailNotFound!);
                 return View(model);
-
             }
 
             ModelState.AddModelError("", @Resource.SomethingWentWrongTryAgain);
@@ -167,8 +165,7 @@ namespace project_itransition.Controllers
                 return RedirectToAction("Login");
             }
 
-            var result =
-                await signInManager.ExternalLoginSignInAsync(info.LoginProvider, info.ProviderKey, isPersistent: false);
+            var result = await signInManager.ExternalLoginSignInAsync(info.LoginProvider, info.ProviderKey, isPersistent: false);
 
             if (result.Succeeded)
             {

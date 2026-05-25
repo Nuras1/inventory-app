@@ -30,9 +30,7 @@
             </form>
 
             <form asp-action="UnBlock" method="post">
-                <input type="hidden"
-                       name="Id"
-                       id="unblockUserId">
+                <input type="hidden" name="Id" id="unblockUserId">
 
                 <button type="submit"
                         class="btn btn-success rounded-pill px-4">
@@ -43,9 +41,7 @@
             </form>
 
             <form asp-action="MakeAdmin" method="post">
-                <input type="hidden"
-                       name="Id"
-                       id="makeAdminUserId">
+                <input type="hidden" name="Id" id="makeAdminUserId">
 
                 <button type="submit"
                         class="btn btn-primary rounded-pill px-4">
@@ -56,9 +52,7 @@
             </form>
 
             <form asp-action="RemoveAdmin" method="post">
-                <input type="hidden"
-                       name="Id"
-                       id="removeAdminUserId">
+                <input type="hidden" name="Id" id="removeAdminUserId">
 
                 <button type="submit"
                         class="btn btn-secondary rounded-pill px-4">
@@ -69,9 +63,7 @@
             </form>
 
             <form asp-action="Delete" method="post">
-                <input type="hidden"
-                       name="Id"
-                       id="deleteUserId">
+                <input type="hidden" name="Id" id="deleteUserId">
 
                 <button type="submit"
                         class="btn btn-danger rounded-pill px-4">
@@ -107,14 +99,11 @@
 
             @foreach (var user in Model)
             {
-                <tr class="user-row"
-                    data-user-id="@user.Id">
+                <tr class="user-row" data-user-id="@user.Id">
 
                     <td>
 
-                        <input type="radio"
-                               name="selectedUser"
-                               value="@user.Id"
+                        <input type="radio" name="selectedUser" value="@user.Id"
                                class="form-check-input user-selector">
 
                     </td>

@@ -69,20 +69,17 @@
 
                 @foreach (var item in Model)
                 {
-                    <tr class="inventory-row"
-                        data-id="@item.Id">
+                    <tr class="inventory-row" data-id="@item.Id">
 
                         <td>
 
-                            <input type="radio"
-                                   name="selectedInventory"
-                                   value="@item.Id"
+                            <input type="radio" name="selectedInventory" value="@item.Id"
                                    class="form-check-input inventory-selector">
 
                         </td>
 
                         <td class="fw-semibold">
-                                @item.Title
+                            @item.Title
                         </td>
 
                         <td>

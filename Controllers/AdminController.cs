@@ -89,7 +89,7 @@ namespace project_itransition.Controllers
             if (user != null)
             {
                 await userManager.AddToRoleAsync(user, "Admin");
-
+                
             }
             return RedirectToAction("Index");
         }

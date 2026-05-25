@@ -2,7 +2,7 @@
 @model project_itransition.Models.Entities.Item
 
 @{
-    ViewData["Title"] = "Delete Item";
+    ViewData["Title"] = @Resource.DeleteItem;
 }
 
 <h2>@Resource.DeleteItem</h2>
@@ -24,9 +24,7 @@
 
     </button>
 
-    <a asp-controller="Inventory"
-       asp-action="Details"
-       asp-route-id="@Model.InventoryId"
+    <a asp-controller="Inventory" asp-action="Details" asp-route-id="@Model.InventoryId"
        class="btn btn-secondary">
 
         @Resource.Cancel
